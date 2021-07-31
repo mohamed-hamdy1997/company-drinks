@@ -23,17 +23,17 @@ class EmployeeDrink extends Model
 
     public function user()
     {
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function drinks()
     {
-        $this->belongsTo(Drink::class,'drink_id');
+        return $this->belongsTo(Drink::class,'drink_id');
     }
 
     public function maker()
     {
-        $this->belongsTo(User::class,'maker_id');
+        return $this->belongsTo(User::class,'maker_id');
     }
 
 

@@ -26,7 +26,7 @@ class UserController extends Controller
 
     public function dashboard()
     {
-        $drinksOrdered = EmployeeDrink::query()->where('user_id', auth()->id())->get();
+        $drinksOrdered = EmployeeDrink::query()->where('user_id', auth()->id())->with('maker')->get();
         $drinks = Drink::all();
         return view('dashboard', ['drinks' => $drinks, 'drinksOrdered' => $drinksOrdered]);
     }
@@ -37,12 +37,12 @@ class UserController extends Controller
         return view('users', ['users' => $users]);
     }
 
-    public function addUser(AddUserRequest $request)
+    public function addUser(Request $request)
     {
 //        $this->checkAuthorize(auth()->user());
-        $data = $request->validated();
+        $data = $request->all();
         $password = str_random(8);
-        $data['password'] = $password;
+        $data['password'] = Hash::make($password);
         $user = User::query()->create($data);
         try {
             Mail::to($user)->send(new SendAccountDataForNewUsers($user, $password));

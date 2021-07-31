@@ -17,7 +17,7 @@ class Drink extends Model
 
     public function employeeDrinks()
     {
-        $this->hasMany(EmployeeDrink::class, 'drink_id');
+        return $this->hasMany(EmployeeDrink::class, 'drink_id');
     }
 
     public function getDrinksTodayAttribute()

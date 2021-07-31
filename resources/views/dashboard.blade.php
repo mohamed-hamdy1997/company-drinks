@@ -63,7 +63,7 @@
                                                         @foreach($drinksOrdered as $drinkOrdered)
                                                             <tr role="row" class="odd">
                                                                 <td class="sorting_1">#{{$drinkOrdered->id}}</td>
-                                                                <td class="text-truncate">{{$drinkOrdered->name}}</td>
+                                                                <td class="text-truncate">{{$drinkOrdered->drink_name}}</td>
                                                                 <td>{{$drinkOrdered->created_at}}</td>
                                                                 <td>{{$drinkOrdered->hint}}</td>
                                                                 <td>
@@ -75,7 +75,8 @@
                                                                     تم التحضير
                                                                     @endif
                                                                 </td>
-                                                                <td>{{$drinkOrdered->maker_id ? $drinkOrdered->maker->name : 'under order'}}</td>
+{{--                                                                {{dd($drinkOrdered)}}--}}
+                                                                <td>{{$drinkOrdered->maker_id ? $drinkOrdered->maker->name : 'لم يتم البدء'}}</td>
                                                             </tr>
                                                         @endforeach
                                                         </tbody>

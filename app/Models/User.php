@@ -66,12 +66,12 @@ class User extends Authenticatable
 
     public function drinks()
     {
-        $this->hasMany(EmployeeDrink::class, 'user_id');
+       return $this->hasMany(EmployeeDrink::class, 'user_id');
     }
 
     public function drinksMade()
     {
-        $this->hasMany(EmployeeDrink::class, 'maker_id');
+        return $this->hasMany(EmployeeDrink::class, 'maker_id');
     }
 
 
