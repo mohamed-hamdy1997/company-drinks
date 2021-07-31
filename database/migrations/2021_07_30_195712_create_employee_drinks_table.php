@@ -18,11 +18,17 @@ class CreateEmployeeDrinksTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('drink_id')->unsigned()->nullable();
             $table->string('drink_name')->nullable();
+            $table->string('hint')->nullable();
             $table->integer('status')->default(0);
+            $table->integer('floor_number')->nullable();
+            $table->bigInteger('maker_id')->unsigned()->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('drink_id')->references('id')->on('drinks')
+                ->onDelete('SET NULL')->onUpdate('SET NULL');
+
+            $table->foreign('maker_id')->references('id')->on('users')
                 ->onDelete('SET NULL')->onUpdate('SET NULL');
             $table->timestamps();
         });

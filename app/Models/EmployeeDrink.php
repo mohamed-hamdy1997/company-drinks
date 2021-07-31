@@ -15,6 +15,26 @@ class EmployeeDrink extends Model
         'user_id',
         'drink_id',
         'drink_name',
-        'status'
+        'status',
+        'hint',
+        'floor_number',
+        'maker_id'
     ];
+
+    public function user()
+    {
+        $this->belongsTo(User::class);
+    }
+
+    public function drinks()
+    {
+        $this->belongsTo(Drink::class,'drink_id');
+    }
+
+    public function maker()
+    {
+        $this->belongsTo(User::class,'maker_id');
+    }
+
+
 }

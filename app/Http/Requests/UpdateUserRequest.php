@@ -14,7 +14,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-       return (auth()->user()->type == AUserType::ADMIN || auth()->user() == $this->request->get('id'));
+        return true;
     }
 
     /**
@@ -30,9 +30,9 @@ class UpdateUserRequest extends FormRequest
         return [
             'id' => 'required|exists:users,id',
             'name' => 'required|string',
-            'email' =>  [
+            'email' => [
                 'required',
-                'unique:users,email,'.$this->request->get('id')
+                'unique:users,email,' . $this->request->get('id')
             ],
             'type' => 'required|numeric|in:1,2,3',
             'number_of_drinks' => $num,

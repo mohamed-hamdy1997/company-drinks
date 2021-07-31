@@ -13,19 +13,23 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        الصفحه الرئيسيه
                     </x-jet-nav-link>
                     @if(auth()->user()->type == \App\Enums\AUserType::ADMIN)
                     <x-jet-nav-link href="{{ route('usersPage') }}" :active="request()->routeIs('usersPage')">
-                        Users
+                        المستخدمين
                     </x-jet-nav-link>
 
                         <x-jet-nav-link href="{{ route('addUserPage') }}" :active="request()->routeIs('addUserPage')">
-                            Add User
+                            اضافه مستخدم
                         </x-jet-nav-link>
 
                         <x-jet-nav-link href="{{ route('drinksPage') }}" :active="request()->routeIs('drinksPage')">
-                            Drinks
+                            المشروبات
+                        </x-jet-nav-link>
+
+                        <x-jet-nav-link href="{{ route('addDrinkPage') }}" :active="request()->routeIs('addDrinkPage')">
+                            اضافه مشروب
                         </x-jet-nav-link>
                         @endif
                 </div>
@@ -83,7 +87,7 @@
                 @endif
 
                 <!-- Settings Dropdown -->
-                <div class="ml-3 relative">
+                <div class="ml-3 relative"  style="    text-align: right;">
                     <x-jet-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
@@ -106,11 +110,11 @@
                         <x-slot name="content">
                             <!-- Account Management -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Manage Account') }}
+                                إدارة الحساب
                             </div>
 
                             <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                                {{ __('Profile') }}
+                                الحساب الشخصي
                             </x-jet-dropdown-link>
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -128,7 +132,7 @@
                                 <x-jet-dropdown-link href="{{ route('logout') }}"
                                          onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                    {{ __('Log Out') }}
+                                    تسجيل الخروج
                                 </x-jet-dropdown-link>
                             </form>
                         </x-slot>

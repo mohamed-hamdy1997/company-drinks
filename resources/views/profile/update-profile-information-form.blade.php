@@ -1,10 +1,10 @@
-<x-jet-form-section submit="updateProfileInformation">
+<x-jet-form-section submit="updateProfileInformation" style="text-align: right;">
     <x-slot name="title">
-        {{ __('Profile Information') }}
+        معلومات الملف الشخصي
     </x-slot>
 
     <x-slot name="description">
-        {{ __('Update your account\'s profile information and email address.') }}
+        قم بتحديث معلومات الملف الشخصي لحسابك وعنوان البريد الإلكتروني.
     </x-slot>
 
     <x-slot name="form">
@@ -54,26 +54,35 @@
 
         <!-- Name -->
         <div class="col-span-6 sm:col-span-4">
-            <x-jet-label for="name" value="{{ __('Name') }}" />
+            <x-jet-label for="name" value="الاسم*" />
             <x-jet-input id="name" type="text" class="mt-1 block w-full" wire:model.defer="state.name" autocomplete="name" />
             <x-jet-input-error for="name" class="mt-2" />
         </div>
 
         <!-- Email -->
         <div class="col-span-6 sm:col-span-4">
-            <x-jet-label for="email" value="{{ __('Email') }}" />
+            <x-jet-label for="email" value="البريد الالكتروني*" />
             <x-jet-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="state.email" />
             <x-jet-input-error for="email" class="mt-2" />
         </div>
+
+        <!-- phone number -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="number" value="رقم الموبايل" />
+            <x-jet-input id="number" type="number" class="mt-1 block w-full" wire:model.defer="state.phone_number" />
+            <x-jet-input-error for="phone_number" class="mt-2" />
+        </div>
+
+
     </x-slot>
 
     <x-slot name="actions">
         <x-jet-action-message class="mr-3" on="saved">
-            {{ __('Saved.') }}
+            تم الحفظ
         </x-jet-action-message>
 
         <x-jet-button wire:loading.attr="disabled" wire:target="photo">
-            {{ __('Save') }}
+            حفظ
         </x-jet-button>
     </x-slot>
 </x-jet-form-section>

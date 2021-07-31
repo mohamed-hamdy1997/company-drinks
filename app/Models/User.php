@@ -31,6 +31,7 @@ class User extends Authenticatable
         'number_of_drinks_ordered',
         'number_of_drinks',
         'phone_number',
+        'floor'
     ];
 
     /**
@@ -62,4 +63,16 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function drinks()
+    {
+        $this->hasMany(EmployeeDrink::class, 'user_id');
+    }
+
+    public function drinksMade()
+    {
+        $this->hasMany(EmployeeDrink::class, 'maker_id');
+    }
+
+
 }

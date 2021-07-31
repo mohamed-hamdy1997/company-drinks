@@ -43,34 +43,14 @@
                                                                     aria-controls="users-list-datatable" rowspan="1"
                                                                     colspan="1"
                                                                     aria-label="Name: activate to sort column ascending"
-                                                                    style="width: 185.391px;">البريد الالكتروني
-                                                                </th>
-                                                                <th class="" tabindex="0"
-                                                                    aria-controls="users-list-datatable" rowspan="1"
-                                                                    colspan="1"
-                                                                    aria-label="Role: activate to sort column ascending"
-                                                                    style="width: 48.3281px;">النوع
+                                                                    style="width: 185.391px;">العدد المطلوب اليوم
                                                                 </th>
 
                                                                 <th class="" tabindex="0"
                                                                     aria-controls="users-list-datatable" rowspan="1"
                                                                     colspan="1"
-                                                                    aria-label="Role: activate to sort column ascending"
-                                                                    style="width: 48.3281px;">رقم الموبايل
-                                                                </th>
-
-                                                                <th class="" tabindex="0"
-                                                                    aria-controls="users-list-datatable" rowspan="1"
-                                                                    colspan="1"
-                                                                    aria-label="Role: activate to sort column ascending"
-                                                                    style="width: 48.3281px;">عدد المشاريب المسموحه
-                                                                </th>
-
-                                                                <th class="" tabindex="0"
-                                                                    aria-controls="users-list-datatable" rowspan="1"
-                                                                    colspan="1"
-                                                                    aria-label="Role: activate to sort column ascending"
-                                                                    style="width: 48.3281px;">عدد المشاريب المستخدمه اليوم
+                                                                    aria-label="Name: activate to sort column ascending"
+                                                                    style="width: 185.391px;">التفاصيل
                                                                 </th>
 
                                                                 <th class="" rowspan="1" colspan="1"
@@ -80,30 +60,18 @@
                                                             </thead>
                                                             <tbody>
 
-                                                            @foreach($users as $user)
+                                                            @foreach($drinks as $drink)
                                                                 <tr role="row" class="odd">
-                                                                <td class="sorting_1">#{{$user->id}}</td>
-                                                                <td class="text-truncate">{{$user->name}}</td>
-                                                                <td>{{$user->email}}</td>
-
-                                                                    <td>
-                                                                        @if($user->type == 1)
-                                                                            ادمن
-                                                                        @elseif($user->type == 2)
-                                                                        موظف
-                                                                        @else
-                                                                        عامل مكتب
-                                                                        @endif
-                                                                    </td>
-                                                                <td>{{$user->phone_number}}</td>
-                                                                <td>{{$user->number_of_drinks}}</td>
-                                                                <td>{{$user->number_of_drinks_ordered}}</td>
+                                                                <td class="sorting_1">#{{$drink->id}}</td>
+                                                                <td class="text-truncate">{{$drink->name}}</td>
+                                                                <td>{{$drink->drinks_today}}</td>
+                                                                <td>{{$drink->description}}</td>
                                                                 <td>
-                                                                    <a href="{{'user/'.$user->id}}">
+                                                                    <a href="{{'drink/'.$drink->id}}">
                                                                         <i class="fa fa-edit" title="تعديل"> </i>
                                                                     </a>
 
-                                                                    <a href="{{'delete-user/'.$user->id}}" style="margin-right: 7px;" onclick="if(!confirm('متاكد من حذف المستخدم؟')) return false">
+                                                                    <a href="{{'delete-drink/'.$drink->id}}" style="margin-right: 7px;" onclick="if(!confirm('متاكد من حذف هذا المشروب؟')) return false">
                                                                         <i class="fa fa-trash" title="حذف" > </i>
                                                                     </a>
 
@@ -112,17 +80,6 @@
                                                             @endforeach
                                                             </tbody>
                                                         </table>
-                                                    </div>
-                                                </div>
-                                                <div class="row" style="direction: ltr">
-                                                    <div class="col-sm-12 col-md-12 m-auto">
-                                                        <div class="dataTables_paginate paging_simple_numbers"
-                                                             id="users-list-datatable_paginate">
-                                                            <ul class="pagination">
-                                                                {{ $users->links() }}
-
-                                                            </ul>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
