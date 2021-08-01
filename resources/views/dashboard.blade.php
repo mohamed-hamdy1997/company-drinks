@@ -14,6 +14,11 @@
                                     <div class="table-responsive" style="overflow-x: visible;">
                                         <div id="users-list-datatable_wrapper"
                                              class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                            <h5>الحد الاقصي للمشاريب اليومي: {{ $number_of_drinks }}
+                                                <span style="margin-right: 26px; margin-left: 26px;">|</span>
+                                                عدد المشاريب التي تم طلبها اليوم: {{ $number_of_drinks_ordered }}
+
+                                            </h5>
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <table id="users-list-datatable" class="table dataTable no-footer" role="grid" aria-describedby="users-list-datatable_info">
@@ -75,7 +80,6 @@
                                                                     تم التحضير
                                                                     @endif
                                                                 </td>
-{{--                                                                {{dd($drinkOrdered)}}--}}
                                                                 <td>{{$drinkOrdered->maker_id ? $drinkOrdered->maker->name : 'لم يتم البدء'}}</td>
                                                             </tr>
                                                         @endforeach
@@ -113,7 +117,7 @@
                                                         <select id="drinkName" name="drink_id" class="form-control">
                                                             <option value="none" selected="" disabled="">اسم المشروب*</option>
                                                             @foreach($drinks as $drink)
-                                                            <option value="{{$drink->id}}">{{$drink->name}}</option>
+                                                            <option @if(old('drink_id') == $drink->id) selected @endif value="{{$drink->id}}">{{$drink->name}}</option>
                                                             @endforeach
                                                         </select>
                                                 </div>

@@ -19,12 +19,13 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('password_for_admin');
             $table->rememberToken();
 //            $table->foreignId('current_team_id')->nullable();
 //            $table->string('profile_photo_path', 2048)->nullable();
             $table->bigInteger('phone_number')->nullable();
             $table->integer('type');
-            $table->integer('number_of_drinks')->nullable();
+            $table->integer('number_of_drinks')->default(0);
             $table->integer('number_of_drinks_ordered')->default(0);
             $table->integer('floor')->nullable();
             $table->timestamps();

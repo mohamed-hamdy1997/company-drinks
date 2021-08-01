@@ -12,9 +12,11 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    @if(auth()->user()->type != \App\Enums\AUserType::OFFICE_BOY)
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         الصفحه الرئيسيه
                     </x-jet-nav-link>
+                    @endif
                     @if(auth()->user()->type == \App\Enums\AUserType::ADMIN)
                     <x-jet-nav-link href="{{ route('usersPage') }}" :active="request()->routeIs('usersPage')">
                         المستخدمين
@@ -32,6 +34,11 @@
                             اضافه مشروب
                         </x-jet-nav-link>
                         @endif
+                    @if(auth()->user()->type == \App\Enums\AUserType::OFFICE_BOY)
+                        <x-jet-nav-link href="{{ route('drinkOrderedPageForOfficeBoy') }}" :active="request()->routeIs('drinkOrderedPageForOfficeBoy')">
+                            المشاريب المطلوبه
+                        </x-jet-nav-link>
+                    @endif
                 </div>
             </div>
 

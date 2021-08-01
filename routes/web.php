@@ -19,7 +19,7 @@ use Illuminate\Testing\Fluent\Concerns\Has;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('dashboard');
 });
 
 Route::post('add-user', [\App\Http\Controllers\UserController::class]);
@@ -47,6 +47,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function (){
     Route::post('/update-drink', [UserController::class, 'updateDrink'])->name('updateDrink');
     Route::get('/delete-drink/{id}', [UserController::class, 'deleteDrink'])->name('deleteDrink');
     Route::post('/order-drink', [UserController::class, 'orderDrink'])->name('orderDrink');
+
+    Route::get('/drink-ordered-page', [UserController::class, 'drinkOrderedPageForOfficeBoy'])->name('drinkOrderedPageForOfficeBoy');
+    Route::get('/complete-order/{id}', [UserController::class, 'completeOrder'])->name('completeOrder');
 
 });
 

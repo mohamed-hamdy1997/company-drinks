@@ -13,7 +13,7 @@ class AddUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return true; // <------------------
+        return true;
     }
 
     /**
@@ -23,13 +23,17 @@ class AddUserRequest extends FormRequest
      */
     public function rules()
     {
+        $floor = 'nullable|numeric|min:0';
+        if ($this->get('type') == 3)
+            $floor = 'required|numeric|min:0';
         return [
             'name' => 'required|string',
+//            'password' => 'required|string||min:5',
             'email' => 'required|email|unique:users,email',
             'type' => 'required|numeric|in:1,2,3',
             'number_of_drinks' => 'required|numeric',
             'phone_number' => 'nullable|numeric|digits:11',
-            'floor' => 'required_if:type,==,3|numeric',
+            'floor' => $floor,
         ];
     }
 
