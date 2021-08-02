@@ -34,6 +34,6 @@ class SendAccountDataForNewUsers extends Mailable
         return $this->from(env('MAIL_FROM_ADDRESS'),env('MAIL_FROM_NAME'))
             ->view('emails.account_data_for_new_users')
             ->with(['user' => $this->user, 'password' => $this->password])
-            ->subject('New Account On '. env('MAIL_FROM_NAME'));
+            ->subject('حساب جديد في  '. env('MAIL_FROM_NAME'));
     }
 }

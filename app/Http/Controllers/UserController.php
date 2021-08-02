@@ -47,9 +47,7 @@ class UserController extends Controller
     {
         $this->checkAuthorize(auth()->user());
         $data = $request->validated();
-        $password = str_random(8);
-//        $password = '12345';
-        $data['password'] = Hash::make($password);
+        $password = $data['password'];
         $data['password'] = Hash::make($password);
         $user = User::query()->create($data);
         try {
@@ -78,7 +76,10 @@ class UserController extends Controller
     public function updateUser(UpdateUserRequest $request)
     {
         $data = $request->validated();
-        $this->checkAuthorize(auth()->user(), $data['id']);
+        $this->checkAuthorize(auth()->user());
+        if (isset($data['password']) && $data['password'])
+            $data['password'] = Hash::make($data['password']);
+
         User::query()->find($data['id'])->update($data);
         if (auth()->user()->type == AUserType::ADMIN)
             $route = 'usersPage';
@@ -96,6 +97,7 @@ class UserController extends Controller
 
     public function addDrinkPage()
     {
+        $this->checkAuthorize(auth()->user());
         return view('add-drink');
     }
 

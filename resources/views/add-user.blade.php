@@ -45,6 +45,19 @@
                                         <div class="form-row">
                                             <div class="col-md-12 col-12">
                                                 <div class="form-group mb-2">
+                                                    @if($errors->first('password'))
+                                                        <li class='text-red-600'>{{$errors->first('password')}}</li>
+                                                    @endif
+                                                    <label for="basic-form-13">الرقم السري*
+                                                        <i onclick="showPassword()" title="اظهار/اخفاء الرقم السري" class="fa fa-eye cursor-pointer"></i>
+                                                    </label>
+                                                    <input type="password" value="{{old('password')}}" id="basic-form-13" class="form-control" name="password">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-12 col-12">
+                                                <div class="form-group mb-2">
                                                     @if($errors->first('phone_number'))
                                                         <li class='text-red-600'>{{$errors->first('phone_number')}}</li>
                                                     @endif
@@ -114,6 +127,15 @@
             document.getElementById("floorId").style.display = 'block';
         } else {
             document.getElementById("floorId").style.display = 'none';
+        }
+    }
+
+    function showPassword() {
+        if (document.getElementById("basic-form-13").type == 'password')
+        {
+            document.getElementById("basic-form-13").type = 'text';
+        } else {
+            document.getElementById("basic-form-13").type = 'password';
         }
     }
 </script>

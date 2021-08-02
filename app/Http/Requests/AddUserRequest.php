@@ -28,7 +28,7 @@ class AddUserRequest extends FormRequest
             $floor = 'required|numeric|min:0';
         return [
             'name' => 'required|string',
-//            'password' => 'required|string||min:5',
+            'password' => 'required|string|min:5',
             'email' => 'required|email|unique:users,email',
             'type' => 'required|numeric|in:1,2,3',
             'number_of_drinks' => 'required|numeric',
@@ -42,6 +42,8 @@ class AddUserRequest extends FormRequest
     {
         return [
           'name.required' => 'حقل الاسم مطلوب.',
+          'password.required' => 'حقل الرقم السري مطلوب.',
+          'password.min' => 'يجب ان يتكون الرقم السري من 5 خانات علي الاقل.',
           'email.required' => 'حقل البريد الالكتروني مطلوب.',
           'email.unique' => 'البريد الإلكتروني تم أخذه سابقا.',
           'type.required' => 'حقل الوظيفه مطلوب.',
