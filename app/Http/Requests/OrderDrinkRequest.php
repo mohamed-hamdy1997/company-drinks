@@ -38,8 +38,10 @@ class OrderDrinkRequest extends FormRequest
         return [
           'drink_id.required' => 'حقل الاسم مطلوب.',
           'floor_number.required' => 'حقل الطابق مطلوب.',
-          'floor_number.num_drinks' => 'حقل العدد مطلوب.',
-          'floor_number.min' => 'حقل العدد يجب ان يكون اكبر من صفر.',
+          'num_drinks.required' => 'حقل العدد مطلوب.',
+          'num_drinks.min' => 'حقل العدد يجب ان يكون اكبر من صفر.',
+          'floor_number.min' => 'حقل الدور يجب ان يكون اكبر من صفر.',
+          'floor_number.max' => 'حقل الدور يجب ان يكون اصغر من 30.',
           'description.string' => 'حقل التفاصيل يجب ان يكون حروف.',
         ];
     }

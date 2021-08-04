@@ -62,7 +62,7 @@
                                         <div class="form-row">
                                             <div class="col-md-12 col-12">
                                                 <div class="form-group mb-2">
-                                                    @if($errors->first('floor'))
+                                                    @if($errors->first('floor_number'))
                                                         <li class='text-red-600'>{{$errors->first('floor_number')}}</li>
                                                     @endif
                                                     <label for="basic-form-11">الطابق(الدور)*</label>
