@@ -26,6 +26,7 @@ Route::post('add-user', [\App\Http\Controllers\UserController::class]);
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function (){
     Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+    Route::get('/statistics', [UserController::class, 'statistics'])->name('statistics');
 
 
 
@@ -45,8 +46,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function (){
     Route::post('/add-drink', [UserController::class, 'addDrink'])->name('addDrink');
 
     Route::post('/update-drink', [UserController::class, 'updateDrink'])->name('updateDrink');
+    Route::get('/drink/{id}', [UserController::class, 'updateDrinkPage'])->name('updateDrinkPage');
     Route::get('/delete-drink/{id}', [UserController::class, 'deleteDrink'])->name('deleteDrink');
     Route::post('/order-drink', [UserController::class, 'orderDrink'])->name('orderDrink');
+    Route::get('/order-drink', [UserController::class, 'orderDrinkPage'])->name('orderDrinkPage');
 
     Route::get('/drink-ordered-page', [UserController::class, 'drinkOrderedPageForOfficeBoy'])->name('drinkOrderedPageForOfficeBoy');
     Route::get('/complete-order/{id}', [UserController::class, 'completeOrder'])->name('completeOrder');

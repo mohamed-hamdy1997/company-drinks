@@ -1,4 +1,5 @@
 <x-app-layout>
+    <meta http-equiv="refresh" content="300">
     <div class="main-content">
         <div class="content-overlay"></div>
         <div class="content-wrapper">
@@ -39,7 +40,12 @@
                                                                     aria-label="Name: activate to sort column ascending"
                                                                     style="width: 200.391px;">ملاحظات
                                                                 </th>
-
+                                                                <th class="" tabindex="0"
+                                                                    aria-controls="users-list-datatable" rowspan="1"
+                                                                    colspan="1"
+                                                                    aria-label="ID: activate to sort column descending"
+                                                                    style="width: 70.4219px;">العدد
+                                                                </th>
                                                                 <th class="" tabindex="0"
                                                                     aria-controls="users-list-datatable" rowspan="1"
                                                                     colspan="1"
@@ -95,6 +101,7 @@
                                                                 <td class="sorting_1"># {{app(\App\Http\Controllers\UserController::class)->convertNumbersToArabic($key +1)}}</td>
                                                                 <td class="text-truncate">{{$drink->drink_name}}</td>
                                                                 <td>{{$drink->hint}}</td>
+                                                                <td>{{$drink->num_drinks}}</td>
                                                                 <td>{{app(\App\Http\Controllers\UserController::class)->convertNumbersToArabic($drink->created_at->format('g:i'))}}
                                                                     @if ($drink->created_at->format('A') == 'PM')
                                                                         م
@@ -147,3 +154,8 @@
     </div>
 
 </x-app-layout>
+<script type="text/javascript">
+    setInterval(function() {
+        window.location.reload();
+    }, 300000);
+</script>

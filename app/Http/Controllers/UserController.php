@@ -8,6 +8,7 @@ use App\Http\Requests\AddDrinkRequest;
 use App\Http\Requests\AddUserRequest;
 use App\Http\Requests\DeleteUserRequest;
 use App\Http\Requests\OrderDrinkRequest;
+use App\Http\Requests\UpdateDrinkRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Mail\SendAccountDataForNewUsers;
 use App\Models\Drink;
@@ -31,7 +32,7 @@ class UserController extends Controller
         if (auth()->user()->type == AUserType::OFFICE_BOY)
             return redirect()->route('drinkOrderedPageForOfficeBoy');
         else{
-            $drinksOrdered = EmployeeDrink::query()->where('user_id', auth()->id())->with('maker')->get();
+            $drinksOrdered = EmployeeDrink::query()->where('user_id', auth()->id())->with('maker')->orderByDesc('created_at')->get();
             $drinks = Drink::all();
             return view('dashboard', ['drinks' => $drinks, 'drinksOrdered' => $drinksOrdered, 'number_of_drinks' => $this->convertNumbersToArabic(auth()->user()->number_of_drinks), 'number_of_drinks_ordered' => $this->convertNumbersToArabic(auth()->user()->number_of_drinks_ordered)]);
         }
@@ -104,7 +105,14 @@ class UserController extends Controller
     public function addDrink(AddDrinkRequest $request)
     {
         $this->checkAuthorize(auth()->user());
-        Drink::query()->create($request->validated());
+        $data = $request->validated();
+        if (isset($data['image_url']))
+        {
+            $filename =$data['image_url']->store('public/drinks_images/'.uniqid());
+            $imageUrl =trim($filename,'public');
+            $data['image_url'] = $imageUrl;
+        }
+        Drink::query()->create($data);
         return redirect()->back()->with('success', 'تم اضافه المشروب بنجاح.');
     }
 
@@ -122,9 +130,9 @@ class UserController extends Controller
             return back()->with('error', 'لقد وصلت للحد الاقصي للمشاريب اليومي.');
 
         $data = $request->validated();
-        EmployeeDrink::query()->create(['drink_id' => $data['drink_id'], 'hint' => $data['description'], 'user_id' => auth()->id(), 'drink_name' => Drink::query()->find($data['drink_id'])->name, 'floor_number' => $data['floor_number']]);
+        EmployeeDrink::query()->create(['drink_id' => $data['drink_id'], 'hint' => $data['description'], 'user_id' => auth()->id(), 'drink_name' => Drink::query()->find($data['drink_id'])->name, 'floor_number' => $data['floor_number'], 'num_drinks' => $data['num_drinks']]);
         $user->update(['number_of_drinks_ordered' => $user->number_of_drinks_ordered +1]);
-        return back()->with('success', 'تم طلب المشروب بنجاح.');
+        return redirect()->route('dashboard')->with('success', 'تم طلب المشروب بنجاح.');
     }
 
     public function drinkOrderedPageForOfficeBoy()
@@ -147,6 +155,49 @@ class UserController extends Controller
             return back()->with('error', 'ليس لديك تفويض لاتخاذ هذا الإجراء.');
     }
 
+
+    public function updateDrinkPage($id)
+    {
+        $this->checkAuthorize(auth()->user());
+
+        return view('edit-drink', ['drink' => Drink::find($id)]);
+    }
+
+    public function orderDrinkPage()
+    {
+        $this->checkAuthorize(auth()->user());
+
+        return view('order-drink', ['drinks' => Drink::all()]);
+    }
+
+    public function updateDrink(UpdateDrinkRequest $request)
+    {
+        $this->checkAuthorize(auth()->user());
+        $data = $request->validated();
+        if (isset($data['image_url']))
+        {
+            $filename =$data['image_url']->store('public/drinks_images/'.uniqid());
+            $imageUrl =trim($filename,'public');
+            $data['image_url'] = $imageUrl;
+        }
+        Drink::query()->find($data['drink_id'])->update($data);
+        return redirect()->route('drinksPage')->with('success', 'تم تعديل المشروب بنجاح.');
+    }
+
+
+    public function statistics()
+    {
+        $this->checkAuthorize(auth()->user());
+        $users  =User::all();
+        return view('statistics', [
+            'numEmployee' => $this->convertNumbersToArabic($users->where('type', AUserType::EMPLOYEE)->count()),
+            'numOfficeboy' => $this->convertNumbersToArabic($users->where('type', AUserType::OFFICE_BOY)->count()),
+            'numAdmins' => $this->convertNumbersToArabic($users->where('type', AUserType::ADMIN)->count()),
+            'numDrinks' => $this->convertNumbersToArabic(Drink::query()->count()),
+            'numDrinksToday' => $this->convertNumbersToArabic(EmployeeDrink::query()->whereDate('created_at', Carbon::today())->count())
+            ]);
+    }
+
     public function checkAuthorize($user, $id = null)
     {
         if ($user->type != AUserType::ADMIN && $user->id != $id)
@@ -160,6 +211,4 @@ class UserController extends Controller
         return str_replace($westernArabic, $easternArabic, $number);
 
     }
-
-
 }

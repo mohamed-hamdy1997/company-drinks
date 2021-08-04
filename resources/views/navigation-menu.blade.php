@@ -14,7 +14,7 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     @if(auth()->user()->type != \App\Enums\AUserType::OFFICE_BOY)
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        الصفحه الرئيسيه
+                        الطلبات
                     </x-jet-nav-link>
                     @endif
                     @if(auth()->user()->type == \App\Enums\AUserType::ADMIN)
@@ -33,6 +33,15 @@
                         <x-jet-nav-link href="{{ route('addDrinkPage') }}" :active="request()->routeIs('addDrinkPage')">
                             اضافه مشروب
                         </x-jet-nav-link>
+
+                        <x-jet-nav-link href="{{ route('statistics') }}" :active="request()->routeIs('statistics')">
+                           احصائيات
+                        </x-jet-nav-link>
+                        @endif
+                        @if(auth()->user()->type != \App\Enums\AUserType::OFFICE_BOY)
+                            <x-jet-nav-link href="{{ route('orderDrinkPage') }}" :active="request()->routeIs('orderDrinkPage')">
+                                طلب مشروب
+                            </x-jet-nav-link>
                         @endif
                     @if(auth()->user()->type == \App\Enums\AUserType::OFFICE_BOY)
                         <x-jet-nav-link href="{{ route('drinkOrderedPageForOfficeBoy') }}" :active="request()->routeIs('drinkOrderedPageForOfficeBoy')">

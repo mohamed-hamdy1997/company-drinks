@@ -53,6 +53,13 @@
                                                                     style="width: 185.391px;">التفاصيل
                                                                 </th>
 
+                                                                <th class="" tabindex="0"
+                                                                    aria-controls="users-list-datatable" rowspan="1"
+                                                                    colspan="1"
+                                                                    aria-label="Name: activate to sort column ascending"
+                                                                    style="width: 185.391px;">صوره
+                                                                </th>
+
                                                                 <th class="" rowspan="1" colspan="1"
                                                                     aria-label="Action" style="width: 39.3906px;">الاعدادت
                                                                 </th>
@@ -60,12 +67,17 @@
                                                             </thead>
                                                             <tbody>
 
-                                                            @foreach($drinks as $drink)
+                                                            @foreach($drinks as $key => $drink)
                                                                 <tr role="row" class="odd">
                                                                 <td class="sorting_1">#{{$drink->id}}</td>
                                                                 <td class="text-truncate">{{$drink->name}}</td>
                                                                 <td>{{$drink->drinks_today}}</td>
                                                                 <td>{{$drink->description}}</td>
+                                                                <td>
+                                                                    @if($drink->image_url)
+                                                                    <img class="img-lg" onmouseleave="zoomOut({{$key}})" onmouseover="zoomIn({!! $key !!})" id="drink-image-{{$key}}" src="{{asset('storage').$drink->image_url}}" alt="">
+                                                                        @endif
+                                                                </td>
                                                                 <td>
                                                                     <a href="{{'drink/'.$drink->id}}">
                                                                         <i class="fa fa-edit" title="تعديل"> </i>
@@ -98,3 +110,13 @@
     </div>
 
 </x-app-layout>
+
+<script>
+    function zoomIn(key) {
+        document.getElementById('drink-image-'+key).style.transform = "scale(4)";
+    }
+
+    function zoomOut(key) {
+        document.getElementById('drink-image-'+key).style.transform = "scale(1)";
+    }
+</script>

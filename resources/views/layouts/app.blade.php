@@ -31,6 +31,11 @@
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <style>
+            #users-list-datatable_wrapper{
+                overflow-x: scroll !important;
+            }
+        </style>
     </head>
     <body class="font-sans antialiased" style="direction: rtl;overflow-x: hidden;    text-align: right;">
         <x-jet-banner />

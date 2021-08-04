@@ -18,7 +18,8 @@ class EmployeeDrink extends Model
         'status',
         'hint',
         'floor_number',
-        'maker_id'
+        'maker_id',
+        'num_drinks'
     ];
 
     public function user()

@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin',
 //            'name' => 'user',
             'email' => 'admin@admin.com',
-//            'email' => str_random(4).'@admin.com',
+            'number_of_drinks' => 1000,
             'password' => Hash::make('admin'),
             'type' => 1,
         ]);
