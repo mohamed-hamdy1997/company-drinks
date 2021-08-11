@@ -171,9 +171,42 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-jet-responsive-nav-link>
+            @if(auth()->user()->type != \App\Enums\AUserType::OFFICE_BOY)
+                <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    الطلبات
+                </x-jet-responsive-nav-link>
+            @endif
+            @if(auth()->user()->type == \App\Enums\AUserType::ADMIN)
+                <x-jet-responsive-nav-link href="{{ route('usersPage') }}" :active="request()->routeIs('usersPage')">
+                    المستخدمين
+                </x-jet-responsive-nav-link>
+
+                <x-jet-responsive-nav-link href="{{ route('addUserPage') }}" :active="request()->routeIs('addUserPage')">
+                    اضافه مستخدم
+                </x-jet-responsive-nav-link>
+
+                <x-jet-responsive-nav-link href="{{ route('drinksPage') }}" :active="request()->routeIs('drinksPage')">
+                    المشروبات
+                </x-jet-responsive-nav-link>
+
+                <x-jet-responsive-nav-link href="{{ route('addDrinkPage') }}" :active="request()->routeIs('addDrinkPage')">
+                    اضافه مشروب
+                </x-jet-responsive-nav-link>
+
+                <x-jet-responsive-nav-link href="{{ route('statistics') }}" :active="request()->routeIs('statistics')">
+                    احصائيات
+                </x-jet-responsive-nav-link>
+            @endif
+            @if(auth()->user()->type != \App\Enums\AUserType::OFFICE_BOY)
+                <x-jet-responsive-nav-link href="{{ route('orderDrinkPage') }}" :active="request()->routeIs('orderDrinkPage')">
+                    طلب مشروب
+                </x-jet-responsive-nav-link>
+            @endif
+            @if(auth()->user()->type == \App\Enums\AUserType::OFFICE_BOY)
+                <x-jet-responsive-nav-link href="{{ route('drinkOrderedPageForOfficeBoy') }}" :active="request()->routeIs('drinkOrderedPageForOfficeBoy')">
+                    المشاريب المطلوبه
+                </x-jet-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
@@ -192,9 +225,12 @@
             </div>
 
             <div class="mt-3 space-y-1">
+                <div class="block px-4 py-2 text-xs text-gray-400">
+                    إدارة الحساب
+                </div>
                 <!-- Account Management -->
                 <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
-                    {{ __('Profile') }}
+                   الحساب الشخصي
                 </x-jet-responsive-nav-link>
 
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -210,7 +246,7 @@
                     <x-jet-responsive-nav-link href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                     this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        تسجيل الخروج
                     </x-jet-responsive-nav-link>
                 </form>
 
