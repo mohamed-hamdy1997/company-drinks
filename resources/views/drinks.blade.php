@@ -57,6 +57,13 @@
                                                                     aria-controls="users-list-datatable" rowspan="1"
                                                                     colspan="1"
                                                                     aria-label="Name: activate to sort column ascending"
+                                                                    style="width: 185.391px;">متاح الي
+                                                                </th>
+
+                                                                <th class="" tabindex="0"
+                                                                    aria-controls="users-list-datatable" rowspan="1"
+                                                                    colspan="1"
+                                                                    aria-label="Name: activate to sort column ascending"
                                                                     style="width: 185.391px;">صوره
                                                                 </th>
 
@@ -73,6 +80,16 @@
                                                                 <td class="text-truncate">{{$drink->name}}</td>
                                                                 <td>{{$drink->drinks_today}}</td>
                                                                 <td>{{$drink->description}}</td>
+                                                                <td>
+                                                                    @if($drink->target == \App\Enums\DrinkTarget::ADMIN)
+                                                                        ادمن
+                                                                    @elseif($drink->target == \App\Enums\DrinkTarget::EMPLOYEE)
+                                                                        موظفين
+                                                                    @else
+                                                                    ادمن/موظفين
+                                                                        @endif
+
+                                                                </td>
                                                                 <td>
                                                                     @if($drink->image_url)
                                                                     <img class="img-lg" onmouseleave="zoomOut({{$key}})" onmouseover="zoomIn({!! $key !!})" id="drink-image-{{$key}}" src="{{asset('storage').$drink->image_url}}" alt="">

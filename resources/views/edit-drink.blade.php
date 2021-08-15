@@ -47,6 +47,23 @@
                                         <div class="form-row">
                                             <div class="col-md-12 col-12">
                                                 <div class="form-group mb-2">
+                                                    @if($errors->first('target'))
+                                                        <li class='text-red-600'>{{$errors->first('target')}}</li>
+                                                    @endif
+                                                    <label for="basic-form-121">متاح الي*</label>
+                                                    <select id="basic-form-121" name="target" class="form-control">
+                                                        <option value="none" selected="" disabled="">متاح الي*</option>
+                                                        <option @if($drink->target == 1) selected @endif value="1">الادمن</option>
+                                                        <option @if($drink->target == 2) selected @endif value="2">الموظفين</option>
+                                                        <option @if($drink->target == 3) selected @endif value="3">الادمن/الموظفين</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="col-md-12 col-12">
+                                                <div class="form-group mb-2">
                                                     @if($errors->first('image_url'))
                                                         <li class='text-red-600'>{{$errors->first('image_url')}}</li>
                                                     @endif

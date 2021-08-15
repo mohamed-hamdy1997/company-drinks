@@ -71,6 +71,13 @@
                                                                     aria-controls="users-list-datatable" rowspan="1"
                                                                     colspan="1"
                                                                     aria-label="Name: activate to sort column ascending"
+                                                                    style="width: 185.391px;">الوظيفه
+                                                                </th>
+
+                                                                <th class="" tabindex="0"
+                                                                    aria-controls="users-list-datatable" rowspan="1"
+                                                                    colspan="1"
+                                                                    aria-label="Name: activate to sort column ascending"
                                                                     style="width: 185.391px;">رقم التليفون
                                                                 </th>
 
@@ -111,6 +118,15 @@
                                                                 </td>
                                                                 <td>{{$drink->floor_number}}</td>
                                                                 <td>{{$drink->user->name}}</td>
+                                                                <td>
+                                                                    @if($drink->user->type == \App\Enums\AUserType::EMPLOYEE)
+                                                                        موظف
+                                                                    @elseif($drink->user->type == \App\Enums\AUserType::ADMIN)
+                                                                        ادمن
+                                                                    @elseif($drink->user->type == \App\Enums\AUserType::OFFICE_BOY)
+                                                                        عامل مكتب
+                                                                    @endif
+                                                                </td>
                                                                 <td>{{$drink->user->phone_number}}</td>
                                                                     <td>
                                                                         @if($drink->status == \App\Enums\DrinkStatus::ORDERED)

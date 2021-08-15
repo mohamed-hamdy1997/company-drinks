@@ -25,8 +25,12 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         $num = 'required|numeric';
-        if (auth()->user()->type == AUserType::OFFICE_BOY)
+        $floor = 'nullable|numeric|min:0';
+        if ($this->get('type') == AUserType::OFFICE_BOY)
+        {
             $num = 'nullable|numeric';
+            $floor = 'required|numeric|min:0';
+        }
         return [
             'id' => 'required|exists:users,id',
             'name' => 'required|string',
@@ -38,6 +42,7 @@ class UpdateUserRequest extends FormRequest
             'type' => 'required|numeric|in:1,2,3',
             'number_of_drinks' => $num,
             'phone_number' => 'nullable|numeric',
+            'floor' => $floor,
         ];
     }
 
@@ -54,6 +59,7 @@ class UpdateUserRequest extends FormRequest
             'number_of_drinks.required' => 'حقل عدد المشاريب المتاحه في اليوم مطلوب.',
             'phone_number.numeric' => 'حقل رقم التليفون يجيب ان يكون ارقام.',
             'phone_number.digits' => 'يجب أن يتكون رقم الهاتف من 11 رقمًا.',
+            'floor.required' => 'حقل رقم الطابق مطلوب عندما تكون وظيفه المستخدمه عامل مكتب.',
         ];
     }
 }

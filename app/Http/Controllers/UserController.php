@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\AUserType;
 use App\Enums\DrinkStatus;
+use App\Enums\DrinkTarget;
 use App\Http\Requests\AddDrinkRequest;
 use App\Http\Requests\AddUserRequest;
 use App\Http\Requests\DeleteUserRequest;
@@ -39,49 +40,58 @@ class UserController extends Controller
     }
     public function usersPage()
     {
-        $this->checkAuthorize(auth()->user());
+        if (auth()->user()->type != AUserType::ADMIN )
+            return redirect()->route('dashboard')->with('error', 'ليس لديك تفويض لاتخاذ هذا الإجراء.');
+
         $users = User::query()->paginate(10);
         return view('users', ['users' => $users]);
     }
 
     public function addUser(AddUserRequest $request)
     {
-        $this->checkAuthorize(auth()->user());
+        if (auth()->user()->type != AUserType::ADMIN )
+            return redirect()->route('dashboard')->with('error', 'ليس لديك تفويض لاتخاذ هذا الإجراء.');
+
         $data = $request->validated();
         $password = $data['password'];
         $data['password'] = Hash::make($password);
         $user = User::query()->create($data);
-        try {
-            Mail::to($user)->send(new SendAccountDataForNewUsers($user, $password));
-        } catch (\Exception $e) {
-            User::destroy([$user->id]);
-            return back()->with('error', 'لم يتم إرسال البريد الإلكتروني للمستخدم.');
-        }
+//        try {
+//            Mail::to($user)->send(new SendAccountDataForNewUsers($user, $password));
+//        } catch (\Exception $e) {
+//            User::destroy([$user->id]);
+//            return back()->with('error', 'لم يتم إرسال البريد الإلكتروني للمستخدم.');
+//        }
         return back()->with('success', 'تم اضافه المستخدم بنجاح.');
     }
 
     public function deleteUser($id)
     {
-        $this->checkAuthorize(auth()->user());
+        if (auth()->user()->type != AUserType::ADMIN )
+            return redirect()->route('dashboard')->with('error', 'ليس لديك تفويض لاتخاذ هذا الإجراء.');
+
         User::destroy([$id]);
         return back()->with('success', 'تم حذف المستخدم بنجاح.');
     }
 
     public function updateUserPage($id)
     {
-        $this->checkAuthorize(auth()->user(), $id);
-
+        if (auth()->user()->type != AUserType::ADMIN )
+            return redirect()->route('dashboard')->with('error', 'ليس لديك تفويض لاتخاذ هذا الإجراء.');
         return view('edit-user', ['user' => User::find($id)]);
     }
 
     public function updateUser(UpdateUserRequest $request)
     {
         $data = $request->validated();
-        $this->checkAuthorize(auth()->user());
+        if (auth()->user()->type != AUserType::ADMIN )
+            return redirect()->route('dashboard')->with('error', 'ليس لديك تفويض لاتخاذ هذا الإجراء.');
+
         if (isset($data['password']) && $data['password'])
             $data['password'] = Hash::make($data['password']);
 
         User::query()->find($data['id'])->update($data);
+        User::query()->find($data['id'])->update(['phone_number' => $data['phone_number']]);
         if (auth()->user()->type == AUserType::ADMIN)
             $route = 'usersPage';
         else
@@ -92,19 +102,26 @@ class UserController extends Controller
 
     public function getDrinks()
     {
+        if (auth()->user()->type != AUserType::ADMIN )
+            return redirect()->route('dashboard')->with('error', 'ليس لديك تفويض لاتخاذ هذا الإجراء.');
+
         return view('drinks', ['drinks' => Drink::all()]);
     }
 
 
     public function addDrinkPage()
     {
-        $this->checkAuthorize(auth()->user());
+        if (auth()->user()->type != AUserType::ADMIN )
+            return redirect()->route('dashboard')->with('error', 'ليس لديك تفويض لاتخاذ هذا الإجراء.');
+
         return view('add-drink');
     }
 
     public function addDrink(AddDrinkRequest $request)
     {
-        $this->checkAuthorize(auth()->user());
+        if (auth()->user()->type != AUserType::ADMIN )
+            return redirect()->route('dashboard')->with('error', 'ليس لديك تفويض لاتخاذ هذا الإجراء.');
+
         $data = $request->validated();
         if (isset($data['image_url']))
         {
@@ -118,7 +135,9 @@ class UserController extends Controller
 
     public function deleteDrink($id)
     {
-        $this->checkAuthorize(auth()->user());
+        if (auth()->user()->type != AUserType::ADMIN )
+            return redirect()->route('dashboard')->with('error', 'ليس لديك تفويض لاتخاذ هذا الإجراء.');
+
         Drink::destroy([$id]);
         return back()->with('success', 'تم حذف المشروب بنجاح.');
     }
@@ -158,21 +177,29 @@ class UserController extends Controller
 
     public function updateDrinkPage($id)
     {
-        $this->checkAuthorize(auth()->user());
-
+        if (auth()->user()->type != AUserType::ADMIN )
+            return redirect()->route('dashboard')->with('error', 'ليس لديك تفويض لاتخاذ هذا الإجراء.');
         return view('edit-drink', ['drink' => Drink::find($id)]);
     }
 
     public function orderDrinkPage()
     {
-        $this->checkAuthorize(auth()->user());
+        if (auth()->user()->type == AUserType::ADMIN) {
+            $drinks = Drink::query()->where('target', DrinkTarget::ADMIN)->orWhere('target', DrinkTarget::EMPLOYEE_AND_ADMIN)->get();
+        } elseif (auth()->user()->type == AUserType::EMPLOYEE) {
+            $drinks = Drink::query()->where('target', DrinkTarget::EMPLOYEE)->orWhere('target', DrinkTarget::EMPLOYEE_AND_ADMIN)->get();
+        } else {
+            $drinks = Drink::query()->where('target', DrinkTarget::EMPLOYEE_AND_ADMIN)->get();
+        }
 
-        return view('order-drink', ['drinks' => Drink::all()]);
+        return view('order-drink', ['drinks' => $drinks]);
     }
 
     public function updateDrink(UpdateDrinkRequest $request)
     {
-        $this->checkAuthorize(auth()->user());
+        if (auth()->user()->type != AUserType::ADMIN )
+            return redirect()->route('dashboard')->with('error', 'ليس لديك تفويض لاتخاذ هذا الإجراء.');
+
         $data = $request->validated();
         if (isset($data['image_url']))
         {
@@ -187,7 +214,9 @@ class UserController extends Controller
 
     public function statistics()
     {
-        $this->checkAuthorize(auth()->user());
+        if (auth()->user()->type != AUserType::ADMIN )
+            return redirect()->route('dashboard')->with('error', 'ليس لديك تفويض لاتخاذ هذا الإجراء.');
+
         $users  =User::all();
         return view('statistics', [
             'numEmployee' => $this->convertNumbersToArabic($users->where('type', AUserType::EMPLOYEE)->count()),
@@ -200,8 +229,7 @@ class UserController extends Controller
 
     public function checkAuthorize($user, $id = null)
     {
-        if ($user->type != AUserType::ADMIN && $user->id != $id)
-            return back()->with('error', 'ليس لديك تفويض لاتخاذ هذا الإجراء.');
+        return ($user->type != AUserType::ADMIN && $user->id != $id);
     }
 
     public function convertNumbersToArabic($number)

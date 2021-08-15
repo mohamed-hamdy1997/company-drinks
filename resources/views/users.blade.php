@@ -56,6 +56,13 @@
                                                                     aria-controls="users-list-datatable" rowspan="1"
                                                                     colspan="1"
                                                                     aria-label="Role: activate to sort column ascending"
+                                                                    style="width: 48.3281px;">الدور(الطابق)
+                                                                </th>
+
+                                                                <th class="" tabindex="0"
+                                                                    aria-controls="users-list-datatable" rowspan="1"
+                                                                    colspan="1"
+                                                                    aria-label="Role: activate to sort column ascending"
                                                                     style="width: 48.3281px;">رقم الموبايل
                                                                 </th>
 
@@ -95,6 +102,7 @@
                                                                         عامل مكتب
                                                                         @endif
                                                                     </td>
+                                                                <td>{{$user->type == 3 ? $user->floor : '-'}}</td>
                                                                 <td>{{$user->phone_number}}</td>
                                                                 <td>{{$user->number_of_drinks}}</td>
                                                                 <td>{{$user->number_of_drinks_ordered}}</td>

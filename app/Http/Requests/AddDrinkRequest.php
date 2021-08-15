@@ -27,6 +27,7 @@ class AddDrinkRequest extends FormRequest
         return [
             'name' => 'required|string',
             'description' => 'nullable|string',
+            'target' => 'required|numeric|in:1,2,3',
             'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
@@ -40,6 +41,8 @@ class AddDrinkRequest extends FormRequest
           'image_url.image' => 'يجب ان يكون الملف المرفوع صوره.',
           'image_url.mimes' => 'يجب ان تكون الصوره من النوع jpeg,png,jpg,gif,svg',
           'image_url.max' => 'اقصي حجم للصوره 2 ميجا.',
+          'target.required' => 'حقل متاح الي مطلوب.',
+          'target.in' => 'اختيار خاطئ في حقل متاح الي.',
         ];
     }
 }

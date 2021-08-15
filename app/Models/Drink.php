@@ -13,7 +13,8 @@ class Drink extends Model
     protected $fillable = [
         'name',
         'description',
-        'image_url'
+        'image_url',
+        'target'
     ];
 
     public function employeeDrinks()
