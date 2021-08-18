@@ -27,7 +27,7 @@ class OrderDrinkRequest extends FormRequest
         return [
             'drink_id' => 'required|exists:drinks,id',
             'description' => 'nullable|string',
-            'floor_number' => 'required|numeric|min:31|max:33',
+            'floor_number' => 'required|numeric|in:31,32,33',
             'num_drinks' => 'required|numeric|min:1',
             'sugar_num' => 'required|numeric|min:0',
         ];
@@ -41,8 +41,7 @@ class OrderDrinkRequest extends FormRequest
           'floor_number.required' => 'حقل الطابق مطلوب.',
           'num_drinks.required' => 'حقل العدد مطلوب.',
           'num_drinks.min' => 'حقل العدد يجب ان يكون اكبر من صفر.',
-          'floor_number.min' => 'حقل الدور يجب ان يكون اكبر من صفر.',
-          'floor_number.max' => 'حقل الدور يجب ان يكون 31 او 32 او 33.',
+          'floor_number.in' => 'حقل الدور يجب ان يكون 31 او 32 او 33.',
           'description.string' => 'حقل التفاصيل يجب ان يكون حروف.',
           'sugar_num.required' => 'حقل عدد معالق السكر مطلوب.',
           'sugar_num.min' => 'عدد معالق السكر يجب ان يكون اكبر من صفر.',

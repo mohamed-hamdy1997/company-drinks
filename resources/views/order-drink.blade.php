@@ -62,8 +62,8 @@
                                         <div class="form-row">
                                             <div class="col-md-12 col-12">
                                                 <div class="form-group mb-2">
-                                                    @if($errors->first('num_drinks'))
-                                                        <li class='text-red-600'>{{$errors->first('num_drinks')}}</li>
+                                                    @if($errors->first('sugar_num'))
+                                                        <li class='text-red-600'>{{$errors->first('sugar_num')}}</li>
                                                     @endif
                                                     <label for="basic-form-110">عدد معالق السكر*</label>
                                                     <input type="number" min="0" value="{{old('sugar_num')}}" id="basic-form-110" class="form-control" name="sugar_num">

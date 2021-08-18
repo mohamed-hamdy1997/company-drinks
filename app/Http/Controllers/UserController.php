@@ -181,11 +181,11 @@ class UserController extends Controller
     public function orderDrinkPage()
     {
         if (auth()->user()->type == AUserType::ADMIN) {
-            $drinks = Drink::query()->where('target', DrinkTarget::ADMIN)->orWhere('target', DrinkTarget::EMPLOYEE_AND_ADMIN)->get();
+            $drinks = Drink::query()->where('target', DrinkTarget::ADMIN)->orWhere('target', DrinkTarget::EMPLOYEE_AND_ADMIN)->orWhere('target', DrinkTarget::OFFICE_BOY_AND_ADMIN)->orWhere('target', DrinkTarget::OFFICE_BOY_AND_EMPLOYEE_AND_ADMIN)->get();
         } elseif (auth()->user()->type == AUserType::EMPLOYEE) {
-            $drinks = Drink::query()->where('target', DrinkTarget::EMPLOYEE)->orWhere('target', DrinkTarget::EMPLOYEE_AND_ADMIN)->get();
-        } else {
-            $drinks = Drink::query()->where('target', DrinkTarget::EMPLOYEE_AND_ADMIN)->get();
+            $drinks = Drink::query()->where('target', DrinkTarget::EMPLOYEE)->orWhere('target', DrinkTarget::EMPLOYEE_AND_ADMIN)->orWhere('target', DrinkTarget::OFFICE_BOY_AND_EMPLOYEE)->orWhere('target', DrinkTarget::OFFICE_BOY_AND_EMPLOYEE_AND_ADMIN)->get();
+        } elseif(auth()->user()->type == AUserType::OFFICE_BOY) {
+            $drinks = Drink::query()->where('target', DrinkTarget::OFFICE_BOY)->orWhere('target', DrinkTarget::OFFICE_BOY_AND_EMPLOYEE_AND_ADMIN)->orWhere('target', DrinkTarget::OFFICE_BOY_AND_EMPLOYEE)->orWhere('target', DrinkTarget::OFFICE_BOY_AND_ADMIN)->get();
         }
 
         return view('order-drink', ['drinks' => $drinks]);

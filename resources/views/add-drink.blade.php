@@ -54,7 +54,11 @@
                                                             <option value="none" selected="" disabled="">متاح الي*</option>
                                                             <option @if(old('target') == 1) selected @endif value="1">الادمن</option>
                                                             <option @if(old('target') == 2) selected @endif value="2">الموظفين</option>
-                                                            <option @if(old('target') == 3) selected @endif value="3">الادمن/الموظفين</option>
+                                                            <option @if(old('target') == 3) selected @endif value="3">عمال المكتب</option>
+                                                            <option @if(old('target') == 4) selected @endif value="4">الادمن/الموظفين</option>
+                                                            <option @if(old('target') == 5) selected @endif value="5">الادمن/عمال المكتب</option>
+                                                            <option @if(old('target') == 6) selected @endif value="6">الموظفين/عمال المكتب</option>
+                                                            <option @if(old('target') == 7) selected @endif value="7">الادمن/الموظفين/عمال المكتب</option>
                                                         </select>
                                                 </div>
                                             </div>

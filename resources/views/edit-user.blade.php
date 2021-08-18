@@ -93,8 +93,12 @@
                                                         <li class='text-red-600'>{{$errors->first('floor')}}</li>
                                                     @endif
                                                     <label for="basic-form-10">الطابق(الدور)*</label>
-                                                        <input type="number" value="{{$user->floor}}" id="basic-form-10" class="form-control" name="floor">
-
+                                                        <select id="basic-form-10" name="floor" class="form-control">
+                                                            <option value="none" selected="" disabled="">الطابق(الدور)*</option>
+                                                            <option @if($user->floor == 31) selected @endif value="31">31</option>
+                                                            <option @if($user->floor == 32) selected @endif value="32">32</option>
+                                                            <option @if($user->floor == 33) selected @endif value="33">33</option>
+                                                        </select>
                                                 </div>
                                             </div>
                                         </div>

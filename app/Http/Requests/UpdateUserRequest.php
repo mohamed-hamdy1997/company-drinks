@@ -25,11 +25,11 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         $num = 'required|numeric';
-        $floor = 'nullable|numeric|min:0';
+        $floor = 'nullable|numeric|in:31,32,33';
         if ($this->get('type') == AUserType::OFFICE_BOY)
         {
             $num = 'nullable|numeric';
-            $floor = 'required|numeric|min:0';
+            $floor = 'required|numeric|in:31,32,33';
         }
         return [
             'id' => 'required|exists:users,id',
@@ -60,6 +60,7 @@ class UpdateUserRequest extends FormRequest
             'phone_number.numeric' => 'حقل رقم التليفون يجيب ان يكون ارقام.',
             'phone_number.digits' => 'يجب أن يتكون رقم الهاتف من 11 رقمًا.',
             'floor.required' => 'حقل رقم الطابق مطلوب عندما تكون وظيفه المستخدمه عامل مكتب.',
+            'floor.in' => 'حقل الدور يجب ان يكون 31 او 32 او 33.',
         ];
     }
 }

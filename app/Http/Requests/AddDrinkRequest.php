@@ -27,7 +27,7 @@ class AddDrinkRequest extends FormRequest
         return [
             'name' => 'required|string',
             'description' => 'nullable|string',
-            'target' => 'required|numeric|in:1,2,3',
+            'target' => 'required|numeric|in:1,2,3,4,5,6,7',
             'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }

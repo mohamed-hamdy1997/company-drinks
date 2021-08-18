@@ -28,7 +28,7 @@ class UpdateDrinkRequest extends FormRequest
             'name' => 'required|string',
             'description' => 'nullable|string',
             'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'target' => 'required|numeric|in:1,2,3',
+            'target' => 'required|numeric|in:1,2,3,4,5,6,7',
         ];
     }
 
