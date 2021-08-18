@@ -29,10 +29,10 @@ class AddUserRequest extends FormRequest
             $floor = 'required|numeric|in:31,32,33';
         return [
             'name' => 'required|string',
-            'password' => 'required|string|min:5',
+            'password' => 'required|string|min:5|max:100',
             'email' => 'required|email|unique:users,email',
             'type' => 'required|numeric|in:1,2,3',
-            'number_of_drinks' => 'required|numeric',
+            'number_of_drinks' => 'required|numeric|min:0|max:1000',
             'phone_number' => 'nullable|numeric|digits:11',
             'floor' => $floor,
         ];
@@ -45,11 +45,14 @@ class AddUserRequest extends FormRequest
           'name.required' => 'حقل الاسم مطلوب.',
           'password.required' => 'حقل الرقم السري مطلوب.',
           'password.min' => 'يجب ان يتكون الرقم السري من 5 خانات علي الاقل.',
+          'password.max' => 'يجب ان يتكون الرقم السري من 100 خانه علي الاكثر.',
           'email.required' => 'حقل البريد الالكتروني مطلوب.',
           'email.unique' => 'البريد الإلكتروني تم أخذه سابقا.',
           'type.required' => 'حقل الوظيفه مطلوب.',
           'email.email' => 'يجب أن يكون البريد الإلكتروني عنوان بريد إلكتروني صالحًا.',
           'number_of_drinks.required' => 'حقل عدد المشاريب المتاحه في اليوم مطلوب.',
+          'number_of_drinks.min' =>'حقل عدد المشاريب يجب ان يكون الا يقل عن صفر.',
+          'number_of_drinks.max' => 'حقل عدد المشاريب يجب ان يكون اصغر من 1000.',
           'phone_number.numeric' => 'حقل رقم التليفون يجيب ان يكون ارقام.',
           'floor.in' => 'حقل الدور يجب ان يكون 31 او 32 او 33.',
           'phone_number.digits' => 'يجب أن يتكون رقم الهاتف من 11 رقمًا.',

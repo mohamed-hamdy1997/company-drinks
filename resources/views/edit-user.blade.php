@@ -109,8 +109,8 @@
                                                     @if($errors->first('number_of_drinks'))
                                                         <li class='text-red-600'>{{$errors->first('number_of_drinks')}}</li>
                                                     @endif
-                                                    <label for="basic-form-7">عدد المشاريب المتاحه في اليوم</label>
-                                                    <input type="number" value="{{$user->number_of_drinks}}" id="basic-form-7" class="form-control" name="number_of_drinks">
+                                                    <label for="basic-form-7">عدد المشاريب المتاحه في اليوم*</label>
+                                                    <input type="number" max="1000" min="0" value="{{$user->number_of_drinks}}" id="basic-form-7" class="form-control" name="number_of_drinks">
                                                 </div>
                                             </div>
                                         </div>

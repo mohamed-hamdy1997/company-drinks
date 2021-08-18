@@ -54,7 +54,7 @@
                                                         <li class='text-red-600'>{{$errors->first('num_drinks')}}</li>
                                                     @endif
                                                     <label for="basic-form-11">العدد(كميه المشروب)*</label>
-                                                    <input type="number" min="1" value="{{old('num_drinks')}}" id="basic-form-11" class="form-control" name="num_drinks">
+                                                    <input type="number" min="1" max="100" value="{{old('num_drinks')}}" id="basic-form-11" class="form-control" name="num_drinks">
                                                 </div>
                                             </div>
                                         </div>
@@ -66,7 +66,7 @@
                                                         <li class='text-red-600'>{{$errors->first('sugar_num')}}</li>
                                                     @endif
                                                     <label for="basic-form-110">عدد معالق السكر*</label>
-                                                    <input type="number" min="0" value="{{old('sugar_num')}}" id="basic-form-110" class="form-control" name="sugar_num">
+                                                    <input type="number" min="0" max="100" value="{{old('sugar_num')}}" id="basic-form-110" class="form-control" name="sugar_num">
                                                 </div>
                                             </div>
                                         </div>

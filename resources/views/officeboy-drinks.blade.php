@@ -49,6 +49,12 @@
                                                                 <th class="" tabindex="0"
                                                                     aria-controls="users-list-datatable" rowspan="1"
                                                                     colspan="1"
+                                                                    aria-label="ID: activate to sort column descending"
+                                                                    style="width: 70.4219px;">عدد معالق السكر
+                                                                </th>
+                                                                <th class="" tabindex="0"
+                                                                    aria-controls="users-list-datatable" rowspan="1"
+                                                                    colspan="1"
                                                                     aria-label="Name: activate to sort column ascending"
                                                                     style="width: 200.391px;">تم الطلب في التوقيت
                                                                 </th>
@@ -109,6 +115,7 @@
                                                                 <td class="text-truncate">{{$drink->drink_name}}</td>
                                                                 <td>{{$drink->hint}}</td>
                                                                 <td>{{$drink->num_drinks}}</td>
+                                                                <td>{{$drink->sugar_num}}</td>
                                                                 <td>{{app(\App\Http\Controllers\UserController::class)->convertNumbersToArabic($drink->created_at->format('g:i'))}}
                                                                     @if ($drink->created_at->format('A') == 'PM')
                                                                         م
