@@ -59,6 +59,12 @@
                                                                 aria-controls="users-list-datatable" rowspan="1"
                                                                 colspan="1"
                                                                 aria-label="ID: activate to sort column descending"
+                                                                style="width: 41.4219px;">عدد معالق السكر
+                                                            </th>
+                                                            <th class="" tabindex="0"
+                                                                aria-controls="users-list-datatable" rowspan="1"
+                                                                colspan="1"
+                                                                aria-label="ID: activate to sort column descending"
                                                                 style="width: 41.4219px;">الدور
                                                             </th>
                                                             <th class="" tabindex="0"
@@ -84,6 +90,7 @@
                                                                 <td>{{$drinkOrdered->created_at}}</td>
                                                                 <td>{{$drinkOrdered->hint}}</td>
                                                                 <td>{{$drinkOrdered->num_drinks}}</td>
+                                                                <td>{{$drinkOrdered->sugar_num}}</td>
                                                                 <td>{{$drinkOrdered->floor_number}}</td>
                                                                 <td>
                                                                 @if($drinkOrdered->status == \App\Enums\DrinkStatus::ORDERED)

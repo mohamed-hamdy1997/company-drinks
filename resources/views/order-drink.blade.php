@@ -62,11 +62,28 @@
                                         <div class="form-row">
                                             <div class="col-md-12 col-12">
                                                 <div class="form-group mb-2">
+                                                    @if($errors->first('num_drinks'))
+                                                        <li class='text-red-600'>{{$errors->first('num_drinks')}}</li>
+                                                    @endif
+                                                    <label for="basic-form-110">عدد معالق السكر*</label>
+                                                    <input type="number" min="0" value="{{old('sugar_num')}}" id="basic-form-110" class="form-control" name="sugar_num">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="col-md-12 col-12">
+                                                <div class="form-group mb-2">
                                                     @if($errors->first('floor_number'))
                                                         <li class='text-red-600'>{{$errors->first('floor_number')}}</li>
                                                     @endif
                                                     <label for="basic-form-11">الطابق(الدور)*</label>
-                                                    <input type="number" value="{{old('floor_number')}}" id="basic-form-11" class="form-control" name="floor_number">
+                                                        <select id="basic-form-11" name="floor_number" class="form-control">
+                                                            <option value="none" selected="" disabled="">الطابق(الدور)*</option>
+                                                            <option @if(old('floor_number') == 31) selected @endif value="31">31</option>
+                                                            <option @if(old('floor_number') == 32) selected @endif value="32">32</option>
+                                                            <option @if(old('floor_number') == 33) selected @endif value="33">33</option>
+                                                        </select>
                                                 </div>
                                             </div>
                                         </div>

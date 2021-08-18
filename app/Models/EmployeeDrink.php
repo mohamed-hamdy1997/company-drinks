@@ -19,7 +19,8 @@ class EmployeeDrink extends Model
         'hint',
         'floor_number',
         'maker_id',
-        'num_drinks'
+        'num_drinks',
+        'sugar_num',
     ];
 
     public function user()

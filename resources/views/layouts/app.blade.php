@@ -35,6 +35,9 @@
             #users-list-datatable_wrapper{
                 overflow-x: scroll !important;
             }
+            select{
+                background-position: left !important;
+            }
         </style>
     </head>
     <body class="font-sans antialiased" style="direction: rtl;overflow-x: hidden;    text-align: right;">

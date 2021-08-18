@@ -12,11 +12,9 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    @if(auth()->user()->type != \App\Enums\AUserType::OFFICE_BOY)
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         الطلبات
                     </x-jet-nav-link>
-                    @endif
                     @if(auth()->user()->type == \App\Enums\AUserType::ADMIN)
                     <x-jet-nav-link href="{{ route('usersPage') }}" :active="request()->routeIs('usersPage')">
                         المستخدمين
@@ -38,11 +36,9 @@
                            احصائيات
                         </x-jet-nav-link>
                         @endif
-                        @if(auth()->user()->type != \App\Enums\AUserType::OFFICE_BOY)
-                            <x-jet-nav-link href="{{ route('orderDrinkPage') }}" :active="request()->routeIs('orderDrinkPage')">
-                                طلب مشروب
-                            </x-jet-nav-link>
-                        @endif
+                        <x-jet-nav-link href="{{ route('orderDrinkPage') }}" :active="request()->routeIs('orderDrinkPage')">
+                            طلب مشروب
+                        </x-jet-nav-link>
                     @if(auth()->user()->type == \App\Enums\AUserType::OFFICE_BOY)
                         <x-jet-nav-link href="{{ route('drinkOrderedPageForOfficeBoy') }}" :active="request()->routeIs('drinkOrderedPageForOfficeBoy')">
                             المشاريب المطلوبه
@@ -171,11 +167,10 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            @if(auth()->user()->type != \App\Enums\AUserType::OFFICE_BOY)
                 <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                     الطلبات
                 </x-jet-responsive-nav-link>
-            @endif
+
             @if(auth()->user()->type == \App\Enums\AUserType::ADMIN)
                 <x-jet-responsive-nav-link href="{{ route('usersPage') }}" :active="request()->routeIs('usersPage')">
                     المستخدمين
@@ -197,11 +192,9 @@
                     احصائيات
                 </x-jet-responsive-nav-link>
             @endif
-            @if(auth()->user()->type != \App\Enums\AUserType::OFFICE_BOY)
                 <x-jet-responsive-nav-link href="{{ route('orderDrinkPage') }}" :active="request()->routeIs('orderDrinkPage')">
                     طلب مشروب
                 </x-jet-responsive-nav-link>
-            @endif
             @if(auth()->user()->type == \App\Enums\AUserType::OFFICE_BOY)
                 <x-jet-responsive-nav-link href="{{ route('drinkOrderedPageForOfficeBoy') }}" :active="request()->routeIs('drinkOrderedPageForOfficeBoy')">
                     المشاريب المطلوبه

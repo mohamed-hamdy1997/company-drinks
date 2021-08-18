@@ -30,13 +30,9 @@ class UserController extends Controller
 
     public function dashboard()
     {
-        if (auth()->user()->type == AUserType::OFFICE_BOY)
-            return redirect()->route('drinkOrderedPageForOfficeBoy');
-        else{
-            $drinksOrdered = EmployeeDrink::query()->where('user_id', auth()->id())->with('maker')->orderByDesc('created_at')->get();
-            $drinks = Drink::all();
-            return view('dashboard', ['drinks' => $drinks, 'drinksOrdered' => $drinksOrdered, 'number_of_drinks' => $this->convertNumbersToArabic(auth()->user()->number_of_drinks), 'number_of_drinks_ordered' => $this->convertNumbersToArabic(auth()->user()->number_of_drinks_ordered)]);
-        }
+        $drinksOrdered = EmployeeDrink::query()->where('user_id', auth()->id())->with('maker')->orderByDesc('created_at')->get();
+        $drinks = Drink::all();
+        return view('dashboard', ['drinks' => $drinks, 'drinksOrdered' => $drinksOrdered, 'number_of_drinks' => $this->convertNumbersToArabic(auth()->user()->number_of_drinks), 'number_of_drinks_ordered' => $this->convertNumbersToArabic(auth()->user()->number_of_drinks_ordered)]);
     }
     public function usersPage()
     {
@@ -56,12 +52,12 @@ class UserController extends Controller
         $password = $data['password'];
         $data['password'] = Hash::make($password);
         $user = User::query()->create($data);
-//        try {
-//            Mail::to($user)->send(new SendAccountDataForNewUsers($user, $password));
-//        } catch (\Exception $e) {
-//            User::destroy([$user->id]);
-//            return back()->with('error', 'لم يتم إرسال البريد الإلكتروني للمستخدم.');
-//        }
+        try {
+            Mail::to($user)->send(new SendAccountDataForNewUsers($user, $password));
+        } catch (\Exception $e) {
+            User::destroy([$user->id]);
+            return back()->with('error', 'لم يتم إرسال البريد الإلكتروني للمستخدم.');
+        }
         return back()->with('success', 'تم اضافه المستخدم بنجاح.');
     }
 
@@ -149,7 +145,7 @@ class UserController extends Controller
             return back()->with('error', 'لقد وصلت للحد الاقصي للمشاريب اليومي.');
 
         $data = $request->validated();
-        EmployeeDrink::query()->create(['drink_id' => $data['drink_id'], 'hint' => $data['description'], 'user_id' => auth()->id(), 'drink_name' => Drink::query()->find($data['drink_id'])->name, 'floor_number' => $data['floor_number'], 'num_drinks' => $data['num_drinks']]);
+        EmployeeDrink::query()->create(['drink_id' => $data['drink_id'], 'hint' => $data['description'], 'user_id' => auth()->id(), 'drink_name' => Drink::query()->find($data['drink_id'])->name, 'floor_number' => $data['floor_number'], 'num_drinks' => $data['num_drinks'], 'sugar_num' => $data['sugar_num']]);
         $user->update(['number_of_drinks_ordered' => $user->number_of_drinks_ordered +1]);
         return redirect()->route('dashboard')->with('success', 'تم طلب المشروب بنجاح.');
     }
